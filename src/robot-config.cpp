@@ -8,9 +8,18 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-
+controller Controller1 = controller(primary);
+motor FL = motor(PORT19, ratio36_1, false);
+motor ML = motor(PORT19, ratio36_1, false);
+motor BL = motor(PORT10, ratio36_1, false);
+motor FR = motor(PORT11, ratio36_1, true);
+motor MR = motor(PORT11, ratio36_1, true);
+motor BR = motor(PORT2, ratio36_1, true);
+inertial imu = inertial(PORT6);
+motor_group DriveLeft(FL,ML,BL);
+motor_group DriveRight(FR,MR,BR);
 // VEXcode generated functions
-
+bool RemoteControlCodeEnabled = true;
 
 
 /**

@@ -1,5 +1,7 @@
 #include "vex.h"
-
+#include <iostream>
+#include <stdlib.h>
+#include <cmath>
 using namespace vex;
 competition Competition;
 
@@ -12,6 +14,25 @@ competition Competition;
 /*  you don't have to. Ensure that your motors are reversed properly. For    */
 /*  the drive, spinning all motors forward should drive the robot forward.   */
 /*---------------------------------------------------------------------------*/
+
+float turningCurve = 5;
+bool turningRed = false;
+
+float forwardCurve = 7.7;
+bool forwardRed = false;
+
+// Joystick curve math
+// Derrived from this graph: https://www.desmos.com/calculator/sdcgzah5ya
+int curveJoystick(bool red, int input, double t){
+  int val = 0;
+  if(red){
+    val = (exp(-t/10)+std::exp((std::abs(input)-100)/10)*(1-std::exp(-t/10))) * input;
+  }else{
+    //blue
+    val = std::exp(((std::abs(input)-100)*t)/1000) * input;
+  }
+  return val;
+}
 
 /*---------------------------------------------------------------------------*/
 /*                             JAR-Template Config                           */
@@ -32,13 +53,13 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+motor_group(FL,ML,BL),
 
 //Right Motors:
-motor_group(),
+motor_group(FR,MR,BR),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT6,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -190,10 +211,16 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+    double turnVal = curveJoystick(turningRed, Controller1.Axis1.position(percent), turningCurve); //Get curvature according to settings [-100,100]
+    double forwardVal = curveJoystick(forwardRed, Controller1.Axis3.position(percent), forwardCurve); //Get curvature according to settings [-100,100]
+
+    double turnVolts = turnVal * 0.12; //Converts to voltage
+    double forwardVolts = forwardVal * 0.12; //Converts to voltage
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
+
+    
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
