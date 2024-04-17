@@ -15,6 +15,8 @@ competition Competition;
 /*  the drive, spinning all motors forward should drive the robot forward.   */
 /*---------------------------------------------------------------------------*/
 
+
+//curves set to 0 = linear drive curve
 float turningCurve = 5;
 bool turningRed = false;
 
@@ -47,7 +49,7 @@ Drive chassis(
 //Specify your drive setup below. There are seven options:
 //ZERO_TRACKER_NO_ODOM, ZERO_TRACKER_ODOM, TANK_ONE_ENCODER, TANK_ONE_ROTATION, TANK_TWO_ENCODER, TANK_TWO_ROTATION, HOLONOMIC_TWO_ENCODER, and HOLONOMIC_TWO_ROTATION
 //For example, if you are not using odometry, put ZERO_TRACKER_NO_ODOM below:
-ZERO_TRACKER_NO_ODOM,
+TANK_ONE_ROTATION,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
@@ -93,7 +95,7 @@ PORT3,     -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-3,
+PORT4,
 
 //Input the Forward Tracker diameter (reverse it to make the direction switch):
 2.75,
@@ -104,7 +106,7 @@ PORT3,     -PORT4,
 -2,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-1,
+PORT3,
 
 //Sideways tracker diameter (reverse to make the direction switch):
 -2.75,
@@ -217,12 +219,7 @@ void usercontrol(void) {
     double turnVolts = turnVal * 0.12; //Converts to voltage
     double forwardVolts = forwardVal * 0.12; //Converts to voltage
 
-    //Replace this line with chassis.control_tank(); for tank drive 
-    //or chassis.control_holonomic(); for holo drive.
-
-    
-
-    wait(20, msec); // Sleep the task for a short amount of time to
+    wait(10, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
 }
