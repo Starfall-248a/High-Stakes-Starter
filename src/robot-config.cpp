@@ -1,5 +1,7 @@
 #include "vex.h"
 
+#pragma once
+ 
 using namespace vex;
 using signature = vision::signature;
 using code = vision::code;

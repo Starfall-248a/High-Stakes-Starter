@@ -10,6 +10,11 @@ extern motor FL;
 extern motor BR;
 extern motor MR;
 extern motor FR;
+extern inertial imu;
+extern rotation LatRot;
+extern rotation LinRot;
+extern motor_group DriveLeft;
+extern motor_group DriveRight;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 

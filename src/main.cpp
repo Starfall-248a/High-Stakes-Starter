@@ -1,48 +1,9 @@
 #include "vex.h"
-#include <iostream>
-#include <stdlib.h>
-#include <cmath>
+
 using namespace vex;
 competition Competition;
 
-/*---------------------------------------------------------------------------*/
-/*                             VEXcode Config                                */
-/*                                                                           */
-/*  Before you do anything else, start by configuring your motors and        */
-/*  sensors using the V5 port icon in the top right of the screen. Doing     */
-/*  so will update robot-config.cpp and robot-config.h automatically, so     */
-/*  you don't have to. Ensure that your motors are reversed properly. For    */
-/*  the drive, spinning all motors forward should drive the robot forward.   */
-/*---------------------------------------------------------------------------*/
-
-
-//curves set to 0 = linear drive curve
-float turningCurve = 5;
-bool turningRed = false;
-
-float forwardCurve = 7.7;
-bool forwardRed = false;
-
-// Joystick curve math
-// Derrived from this graph: https://www.desmos.com/calculator/sdcgzah5ya
-int curveJoystick(bool red, int input, double t){
-  int val = 0;
-  if(red){
-    val = (exp(-t/10)+std::exp((std::abs(input)-100)/10)*(1-std::exp(-t/10))) * input;
-  }else{
-    //blue
-    val = std::exp(((std::abs(input)-100)*t)/1000) * input;
-  }
-  return val;
-}
-
-/*---------------------------------------------------------------------------*/
-/*                             JAR-Template Config                           */
-/*                                                                           */
-/*  Where all the magic happens. Follow the instructions below to input      */
-/*  all the physical constants and values for your robot. You should         */
-/*  already have configured your robot manually with the sidebar configurer. */
-/*---------------------------------------------------------------------------*/
+// * __________________________________________ * //
 
 Drive chassis(
 
@@ -209,15 +170,8 @@ void usercontrol(void) {
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
 
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
-    double turnVal = curveJoystick(turningRed, Controller1.Axis1.position(percent), turningCurve); //Get curvature according to settings [-100,100]
-    double forwardVal = curveJoystick(forwardRed, Controller1.Axis3.position(percent), forwardCurve); //Get curvature according to settings [-100,100]
-
-    double turnVolts = turnVal * 0.12; //Converts to voltage
-    double forwardVolts = forwardVal * 0.12; //Converts to voltage
+    //Set robot subsystems
+    setDrive();
 
     wait(10, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
