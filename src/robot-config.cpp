@@ -22,6 +22,7 @@ rotation LatRot = rotation(PORT4);
 rotation LinRot = rotation(PORT3);
 motor_group DriveLeft(FL,ML,BL);
 motor_group DriveRight(FR,MR,BR);
+digital_out Pneu1 = digital_out(Brain.ThreeWirePort.A);
 // VEXcode generated functions
 bool RemoteControlCodeEnabled = true;
 

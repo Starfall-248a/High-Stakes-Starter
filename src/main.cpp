@@ -39,7 +39,7 @@ PORT6,
 /*---------------------------------------------------------------------------*/
 /*                                  PAUSE!                                   */
 /*                                                                           */
-/*  The rest of the drive constructor is for robots using POSITION TRACKING. */
+/*  The rest of the drive constructor is for POSITION TRACKING.              */
 /*  If you are not using position tracking, leave the rest of the values as  */
 /*  they are.                                                                */
 /*---------------------------------------------------------------------------*/
@@ -74,7 +74,6 @@ PORT3,
 
 //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
 5.5
-
 );
 
 int current_auton_selection = 0;
@@ -169,6 +168,9 @@ void usercontrol(void) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
+
+    //Pneumatic toggles
+    Controller1.ButtonR1.pressed(pneu1Toggle);
 
     //Set robot subsystems
     setDrive();

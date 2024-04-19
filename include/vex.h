@@ -23,7 +23,7 @@
 #include "JAR-Template/util.h"
 #include "JAR-Template/PID.h"
 #include "autons.h"
-#include "globals.h"
+#include "StarLib.h"
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

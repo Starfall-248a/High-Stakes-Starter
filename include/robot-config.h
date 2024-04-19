@@ -15,6 +15,7 @@ extern rotation LatRot;
 extern rotation LinRot;
 extern motor_group DriveLeft;
 extern motor_group DriveRight;
+extern digital_out Pneu1;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 
